@@ -30,7 +30,7 @@ class Snapshot:
         Snapshot.count += 1
 
     def output(self, path, tipe):
-        output_path = str(os.path.join(path, 'output/output.')+tipe)
+        output_path = str(os.path.join(path, 'output/output.') + tipe)
         if not os.path.exists(os.path.join(path, 'output')):
             os.mkdir(os.path.join(path, 'output'))
 
