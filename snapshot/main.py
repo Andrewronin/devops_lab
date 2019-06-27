@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from my_class import Snapshot
+from snapshot.my_class import Snapshot
 import json
 import time
 import os

@@ -1,2 +1,2 @@
-from main import main
+from snapshot.main import main
 main()
