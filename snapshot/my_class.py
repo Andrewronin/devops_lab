@@ -30,11 +30,9 @@ class Snapshot:
         Snapshot.count += 1
 
     def output(self, path, tipe):
-        output_path = str(os.path.join(path, 'output/output.') + tipe)
+        output_path = str(os.path.join(path, 'output/output.')+tipe)
         if not os.path.exists(os.path.join(path, 'output')):
             os.mkdir(os.path.join(path, 'output'))
-
-        file = open(output_path, "a+")
 
         if tipe == "txt":
             header = PrettyTable(["Number", "Time", "CPU load"])
@@ -54,15 +52,17 @@ class Snapshot:
                             self.net.errin,
                             self.net.errout])
 
-            file.write("\n{:^58}\n".format("TIMESTAMP"))
-            file.write(str(header))
-            file.write("\n{:^27}\n".format("MAIN INFORMATION"))
-            file.write(str(table1))
-            file.write("\n{:^42}\n".format("I/O INFORMATION"))
-            file.write(str(table2))
-            file.write("\n{:^46}\n".format("NETWORK"))
-            file.write(str(table3))
-            file.write("\n")
+            with open(output_path, 'a+') as file:
+                file.write("\n{:^58}\n".format("TIMESTAMP"))
+                file.write(str(header))
+                file.write("\n{:^27}\n".format("MAIN INFORMATION"))
+                file.write(str(table1))
+                file.write("\n{:^42}\n".format("I/O INFORMATION"))
+                file.write(str(table2))
+                file.write("\n{:^46}\n".format("NETWORK"))
+                file.write(str(table3))
+                file.write("\n")
+
         else:
             data = json.dumps({
                 "SNAPSHOT": Snapshot.count,
@@ -79,6 +79,6 @@ class Snapshot:
                 "Errors/in": self.net.errin,
                 "/out": self.net.errout
             }, indent=4)
-            file.write(data)
 
-        file.close()
+            with open(output_path, 'a+') as file:
+                file.write(data)
